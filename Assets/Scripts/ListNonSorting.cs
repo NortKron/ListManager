@@ -17,7 +17,7 @@ public class ListNonSorting : MonoBehaviour, IDropHandler
     {
         this.ClearList();
         nameList = listItems.Name;
-        textListName.GetComponent<TMPro.TextMeshProUGUI>().text = "Name: " + nameList + "; Count: " + listItems.Elements.Count;
+        textListName.GetComponent<Text>().text = "Name: " + nameList + "; Count: " + listItems.Elements.Count;
 
         foreach (var element in listItems.Elements)
         {
@@ -70,7 +70,7 @@ public class ListNonSorting : MonoBehaviour, IDropHandler
             itemList.Add(newItem);
         }
 
-        textListName.GetComponent<TMPro.TextMeshProUGUI>().text = "Name: " + nameList + "; Count: " + itemList.Count;
+        textListName.GetComponent<Text>().text = "Name: " + nameList + "; Count: " + itemList.Count;
     }
 
     public void OnDrop(PointerEventData eventData)

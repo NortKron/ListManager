@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ItemList : MonoBehaviour, IBeginDragHandler, IDragHandler, IPointerDownHandler
 {
@@ -23,7 +24,7 @@ public class ItemList : MonoBehaviour, IBeginDragHandler, IDragHandler, IPointer
         this.str = words[0];
         this.num = int.Parse(words[1]);
 
-        textField.GetComponent<TMPro.TextMeshProUGUI>().text = value;
+        textField.GetComponent<Text>().text = value;
     }
     
     public void SetCopy(ItemList itemList)
@@ -32,7 +33,7 @@ public class ItemList : MonoBehaviour, IBeginDragHandler, IDragHandler, IPointer
         this.str = itemList.str;
         this.num = itemList.num;
 
-        textField.GetComponent<TMPro.TextMeshProUGUI>().text = this.value;
+        textField.GetComponent<Text>().text = this.value;
     }
 
     public void SetParentObject(GameObject gameObject)
