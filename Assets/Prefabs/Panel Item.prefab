@@ -226,4 +226,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 2064671791085667056}
-  index: 0
+  parentObject: {fileID: 0}

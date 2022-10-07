@@ -1,21 +1,32 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class ListSorting : ListNonSorting
 {
-    //List<string, int> SortedListItem;
-
-    public void SotringList(bool ByNum, bool ByString)
+    public void SotringList(bool ByString, bool ByNum)
     {
-        if (ByString)
-        {
-            //itemList.Sort();
-        }
-        else
-        {
+        List<ItemList> resultList;
+        IOrderedEnumerable<ItemList> tempList;
 
+        if (ByString)
+            tempList = itemList.OrderBy(n => n.str);
+        else
+            tempList = itemList.OrderByDescending(n => n.str);
+
+        if (ByNum)
+            resultList = tempList.ThenBy(n => n.num).ToList();
+        else
+            resultList = tempList.ThenByDescending(n => n.num).ToList();
+
+        this.ClearList();
+
+        foreach (ItemList item in resultList)
+        {
+            var newItem = Instantiate(prefabItem, panelList.transform);
+            newItem.SetCopy(item);
+            newItem.SetParentObject(transform.gameObject);
+
+            itemList.Add(newItem);
         }
     }
 }

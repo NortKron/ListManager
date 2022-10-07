@@ -1,5 +1,3 @@
-using Newtonsoft.Json;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
@@ -7,36 +5,23 @@ using UnityEngine;
 
 public class ListManager : MonoBehaviour
 {
-    /*
-    public GameObject panelListLeft;
-    public GameObject panelListRight;
+    private string pathDefault;
 
-    public GameObject prefabItem;
-    */
     public ListNonSorting   listNonSorting;
     public ListSorting      listSorting;
 
-    private bool isSortingByNum;
-    private bool isSortingByString;
+    private bool isSortingNumByAsc;
+    private bool isSortingStringByAsc;
 
     public void OnLoadFile()
     {
-        var path = EditorUtility.OpenFilePanel("Open Json", "", "Json");
+        var path = EditorUtility.OpenFilePanel("Open Json", pathDefault, "Json");
 
         if (string.IsNullOrEmpty(path))
             return;
 
-        Debug.Log(path);
-
-        //Read
         string fileContents = File.ReadAllText(path);
-        //var reader = new StreamReader(path);
-        //Debug.Log("Contents:" + fileContents);
-
         ListStructure lists = JsonUtility.FromJson<ListStructure>(fileContents);
-        //JsonConvert.DeserializeObject<ListStructure>(reader);
-
-        //Debug.Log("Name = " + lists.Lists[0].Name);
 
         listNonSorting.SetList(lists.Lists[0]);
         listSorting.SetList(lists.Lists[1]);
@@ -44,41 +29,38 @@ public class ListManager : MonoBehaviour
 
     public void OnSaveFile()
     {
-        var path = EditorUtility.SaveFilePanel("Save Json", "", "lists.json", "Json");
+        var path = EditorUtility.SaveFilePanel("Save Json", pathDefault, "lists.json", "Json");
 
         if (string.IsNullOrEmpty(path))
             return;
 
-        Debug.Log(path);
+        List<ListFromJson> listFromJson = new();
+        listFromJson.Add(listNonSorting.GetList());
+        listFromJson.Add(listSorting.GetList());
 
+        ListStructure lists = new ListStructure(listFromJson);
+        string fileContents = JsonUtility.ToJson(lists);
+
+        File.WriteAllText(path, fileContents);
     }
 
-    public void OnToggleNum(bool N)
+    public void OnToggleNum(bool _isSortingNumByAsc)
     {
-        Debug.Log("OnToggleNum:" + N);
-        isSortingByNum = N;
-
-        listSorting.SotringList(isSortingByNum, isSortingByString);
+        isSortingNumByAsc = _isSortingNumByAsc;
+        listSorting.SotringList(isSortingStringByAsc, isSortingNumByAsc);
     } 
     
-    public void OnToggleStr(bool S)
+    public void OnToggleStr(bool _isSortingStringByAsc)
     {
-        Debug.Log("OnToggleStr");
-        isSortingByString = S;
-
-        listSorting.SotringList(isSortingByNum, isSortingByString);
+        isSortingStringByAsc = _isSortingStringByAsc;
+        listSorting.SotringList(isSortingStringByAsc, isSortingNumByAsc);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        isSortingByNum = false;
-        isSortingByString = false;
-    }
+        isSortingStringByAsc = true;
+        isSortingNumByAsc = true;
 
-    // Update is called once per frame
-    void Update()
-    {
-
+        pathDefault = Application.dataPath + "/JSON Files/";
     }
 }
