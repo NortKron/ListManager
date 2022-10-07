@@ -7,5 +7,5 @@ Simple List manager on Unity
 
 Demo
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/6648495/172368333-3a86b285-7dad-48c3-90f8-7fcc4eaec534.png" width="640">
+  <img src="https://user-images.githubusercontent.com/6648495/194601754-2bf3053e-c936-42d9-93c4-f0b6ff869084.gif" width="640">
 </p>
