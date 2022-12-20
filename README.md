@@ -2,7 +2,7 @@ Simple List manager on Unity
 
 - load items from Json file
 - drag and drop items between lists
-- double sort for list
+- double sort for right list
 - save lists to Json file
 
 Demo
